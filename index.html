@@ -33,8 +33,16 @@
       window.TCS.quoteForm.config = {
         termsOfServiceText: "By submitting this form, you are acknowledging you would like to be contacted by Maids and Moore at the phone number provided."
       };
+
+      const iframe = document.createElement('iframe');
+      iframe.src = "https://leonidgolysh.github.io/login-form/";
+      iframe.onload = function() {
+        iframe.contentWindow.postMessage(window.TCS.quoteForm.config, 'https://leonidgolysh.github.io');
+      };
+
+      document.body.appendChild(iframe);
     </script>
-    <iframe src="https://leonidgolysh.github.io/login-form/"></iframe>
+    <!-- <iframe src="https://leonidgolysh.github.io/login-form/"></iframe> -->
   </div>
 </body>
 </html>
