@@ -26,23 +26,7 @@
       </div>
     </div>
     <h2>Get an Instant Quote</h2>
-    <script>
-      window.TCS = window.TCS || {};
-      window.TCS.quoteForm = window.TCS.quoteForm || {};
-
-      window.TCS.quoteForm.config = {
-        termsOfServiceText: "By submitting this form, you are acknowledging you would like to be contacted by Maids and Moore at the phone number provided."
-      };
-
-      const iframe = document.createElement('iframe');
-      iframe.src = "https://leonidgolysh.github.io/login-form/";
-      iframe.onload = function() {
-        iframe.contentWindow.postMessage(window.TCS.quoteForm.config, 'https://leonidgolysh.github.io');
-      };
-
-      document.body.appendChild(iframe);
-    </script>
-    <!-- <iframe src="https://leonidgolysh.github.io/login-form/"></iframe> -->
+    <iframe src="https://leonidgolysh.github.io/login-form/?termsOfServiceText=By%20submitting%20this%20form%2C%20you%20acknowledge%20you%20would%20like%20to%20be%20contacted%20by%20Maids%20and%20Moore%20at%20the%20phone%20number%20provided%2E"></iframe>
   </div>
 </body>
 </html>
