@@ -1,4 +1,4 @@
-const pako = require("pako");
+// const pako = require("pako");
 
 const data = {
   config: {
@@ -7,7 +7,7 @@ const data = {
 
   theme: {
     bodyBackgroundColor: '#f4f4f4',
-    formBackgroundColor: '#a1a4a7',
+    formBackgroundColor: '#37761d',
     textColor: '#333',
     buttonBackgroundColor: '#ffa500',
     buttonTextColor: '#fff',
