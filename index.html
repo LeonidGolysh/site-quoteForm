@@ -30,10 +30,27 @@
     <!-- <iframe src="https://quote-form-dev.thecleaningsoftware.com?env=dev" width="100%" height="100%"></iframe> -->
     <!-- <iframe src="https://quote-form-staging.thecleaningsoftware.com?env=stage" width="100%" height="100%"></iframe> -->
 
-    <iframe src="https://quote-form.thecleaningsoftware.com?env=prod" width="100%" height="100%"></iframe>
+    <!-- <iframe src="https://quote-form.thecleaningsoftware.com?env=prod" width="100%" height="100%"></iframe> -->
     <!-- <iframe src="https://leonidgolysh.github.io/quote-form/"></iframe> -->
+     <div id="iframe-container" style="width:100%; height:100%;"></div>
   </div>
   <script>
+     const params = new URLSearchParams(window.location.search);
+        const env = params.get("env");
+
+        let src = "";
+
+        if (env === "dev") {
+          src = "https://quote-form-dev.thecleaningsoftware.com?env=dev";
+        } else if (env === "stage") {
+          src = "https://quote-form-staging.thecleaningsoftware.com?env=stage";
+        } else if (env === "prod") {
+          src = "https://quote-form.thecleaningsoftware.com?env=prod";
+        } else {
+          src = "https://quote-form.thecleaningsoftware.com?env=prod";
+        }
+
+        document.getElementById("iframe-container").innerHTML = `<iframe src="${src}" width="100%" height="100%" style="border:0;"></iframe>`;
     window.addEventListener('message', (event) => {
       if (!event.data || event.data.type !== 'quoteFormEvent') {
         return;
