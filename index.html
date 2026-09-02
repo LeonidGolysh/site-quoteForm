@@ -26,16 +26,39 @@
       </div>
     </div>
     <h2>Get an Instant Quote</h2> -->
-    <!-- <iframe src="http://localhost:5500" width="100%" height="100%"></iframe> -->
+    <iframe id="quoteFrame" src="http://localhost:5500?env=local" width="100%" height="100%"></iframe>
     <!-- <iframe src="https://quote-form-dev.thecleaningsoftware.com?env=dev" width="100%" height="100%"></iframe> -->
-    <!-- <iframe src="https://quote-form-staging.thecleaningsoftware.com?env=stage" width="100%" height="100%"></iframe> -->
-
-    <iframe src="https://quote-form.thecleaningsoftware.com?env=prod" width="100%" height="100%"></iframe>
+    <!-- <iframe src="https://quote-form.thecleaningsoftware.com?env=prod" width="100%" height="100%"></iframe> -->
     <!-- <iframe src="https://leonidgolysh.github.io/quote-form/"></iframe> -->
   </div>
   <script>
+    const quoteFrame = document.getElementById('quoteFrame');
+    const quoteFrameOrigin = new URL(quoteFrame.src).origin;
+
     window.addEventListener('message', (event) => {
-      if (!event.data || event.data.type !== 'quoteFormEvent') {
+      if (event.source !== quoteFrame.contentWindow || !event.data) {
+        return;
+      }
+
+      // TCS-1615 handshake: form is ready to receive attribution via postMessage.
+      if (event.data.type === 'quoteFormReady') {
+        console.log('Quote form ready, sending attribution');
+
+        quoteFrame.contentWindow.postMessage(
+          {
+            type: 'quoteFormAttribution',
+            payload: {
+              // Test value for the TCS-1615 QA flow. In production this
+              // would come from this page's own URL/campaign params.
+              gclid: 'test-gclid-from-host-page',
+            },
+          },
+          quoteFrameOrigin
+        );
+        return;
+      }
+
+      if (event.data.type !== 'quoteFormEvent') {
         return;
       }
 
@@ -44,7 +67,7 @@
       const {event: eventName, data} = event.data;
 
       switch (eventName) {
-        case 'quoteFormSubmitted': 
+        case 'quoteFormSubmitted':
           console.log('Form successful submitted ', data);
 
           window.dataLayer = window.dataLayer || [];
